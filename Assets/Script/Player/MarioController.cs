@@ -24,6 +24,10 @@ public class MarioController : MonoBehaviour
     private Animator animator;
     private Rigidbody2D r2d;
 
+    //show level mario
+    public int level=0;
+    public bool isChangeMario = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,9 +40,40 @@ public class MarioController : MonoBehaviour
     {
         animator.SetFloat("velocity", velocity);
         animator.SetBool("isOnGround", isOnGround);
-        animator.SetBool("isNavigation", isNavigation);
+        animator.SetBool("isNavigition", isNavigation);
         OnJump();
         ShootAndSpeed();
+        if (isChangeMario)
+        {
+            switch (level)
+            {
+                case 0:
+                    {
+                        StartCoroutine(ChangeSmallMario());
+
+                        isChangeMario = false;
+                        break;
+                    }
+                case 1:
+                    {
+                        StartCoroutine(ChangeHighMario());
+                        isChangeMario = false;
+                        break;
+                    }
+                case 2:
+                    {
+                        StartCoroutine(ChangeHighMarioWithGun());
+                        isChangeMario = false;
+                        break;
+                    }
+                default:
+                    {
+                        isChangeMario = false;
+                        break;
+                    }
+                
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -124,4 +159,95 @@ public class MarioController : MonoBehaviour
             timeHoldKey = 0f;
         }
     }
+
+
+    //thay đổi độ lớn của mario
+    IEnumerator ChangeHighMario()
+    {
+        float delay = 0.1f;
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+    }
+
+    IEnumerator ChangeHighMarioWithGun()
+    {
+        float delay = 0.1f;
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 1);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 1);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 1);
+        yield return new WaitForSeconds(delay);
+    }
+
+
+    IEnumerator ChangeSmallMario()
+    {
+        float delay = 0.1f;
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+
+        animator.SetLayerWeight(animator.GetLayerIndex("SmallMario"), 1);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMario"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("HighMarioWithGun"), 0);
+        yield return new WaitForSeconds(delay);
+    }
+
 }
