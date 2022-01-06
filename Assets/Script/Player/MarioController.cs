@@ -9,10 +9,10 @@ public class MarioController : MonoBehaviour
 
     //default value setting
     private float velocityWhenPress = 7;
-    
-    private float velocityJump=450;
-    private float velocityFall=5;
-    private float smallJump=5;
+
+    private float velocityJump = 450;
+    private float velocityFall = 5;
+    private float smallJump = 5;
 
     private float timeHoldKey = 0;
 
@@ -25,7 +25,7 @@ public class MarioController : MonoBehaviour
     private Rigidbody2D r2d;
 
     //show level mario
-    public int level=0;
+    public int level = 0;
     public bool isChangeMario = false;
 
     // Start is called before the first frame update
@@ -71,8 +71,12 @@ public class MarioController : MonoBehaviour
                         isChangeMario = false;
                         break;
                     }
-                
+
             }
+        }
+        if (gameObject.transform.position.y < -10f)
+        {
+            Destroy(gameObject);
         }
     }
     private void FixedUpdate()
@@ -105,8 +109,8 @@ public class MarioController : MonoBehaviour
         }
         if (r2d.velocity.y < 0)
         {
-            r2d.velocity += Vector2.up * Physics2D.gravity.y * (velocityFall -1)*Time.deltaTime;
-        }else if(r2d.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+            r2d.velocity += Vector2.up * Physics2D.gravity.y * (velocityFall - 1) * Time.deltaTime;
+        } else if (r2d.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
         {
             r2d.velocity += Vector2.up * Physics2D.gravity.y * (smallJump - 1) * Time.deltaTime;
         }
@@ -140,7 +144,7 @@ public class MarioController : MonoBehaviour
         if (Input.GetKey(KeyCode.Z))
         {
             timeHoldKey += Time.deltaTime;
-            if (timeHoldKey < checkTimeHoldKey) 
+            if (timeHoldKey < checkTimeHoldKey)
             {
 
             }
@@ -250,4 +254,15 @@ public class MarioController : MonoBehaviour
         yield return new WaitForSeconds(delay);
     }
 
+    Vector2 locationDie;
+    public void DestroyMario()
+    {
+        locationDie = transform.localPosition;
+        //GameObject marioDie = (GameObject)Instantiate(Resources.Load("Prefabs/MarioDie"));
+        //marioDie.transform.localPosition = locationDie;
+        //Destroy(gameObject);
+    } 
+    
 }
+
+
